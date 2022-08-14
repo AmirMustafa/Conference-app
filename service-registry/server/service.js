@@ -56,11 +56,11 @@ module.exports = (config) => {
   service.get("/find/:servicename/:serviceversion", (req, res) => {
     const { servicename, serviceversion } = req.params;
     const svc = serviceRegistry.get(servicename, serviceversion);
-    // if (!svc) {
-    //   return res
-    //     .status(404)
-    //     .json({ result: `Service ${servicename} not found ` });
-    // }
+    if (!svc) {
+      return res
+        .status(404)
+        .json({ result: `Service ${servicename} not found ` });
+    }
     return res.json(svc);
   });
 
