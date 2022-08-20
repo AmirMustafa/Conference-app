@@ -1,9 +1,5 @@
 /* eslint-disable class-methods-use-this */
-const fs = require('fs');
-const util = require('util');
 const axios = require('axios');
-
-const readFile = util.promisify(fs.readFile);
 
 class SpeakersService {
   constructor(datafile) {
