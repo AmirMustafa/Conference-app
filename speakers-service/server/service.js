@@ -18,6 +18,8 @@ module.exports = (config) => {
     });
   }
 
+  service.use('/images', express.static(config.data.images)); // access images in URL inside this microservices
+
   // Adding all routes for speakers micro-service
   service.get('/list', async (req, res, next) => {
     try {

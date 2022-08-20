@@ -8,6 +8,15 @@ const feedbackRoute = require('./feedback');
 module.exports = (param) => {
   const { speakers } = param;
 
+  // Image router
+  router.get('/images/:imagedirectory/:filename', async (req, res, next) => {
+    try {
+      const image = await speakers.getImage(`${req.params.imagedirectory}/${req.params.filename}`);
+      return image.pipe(res); // piping because axios sent request is streams - check getImage method
+    } catch (err) {
+      return next(err);
+    }
+  });
   router.get('/', async (req, res, next) => {
     try {
       const promises = [];
