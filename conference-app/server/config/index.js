@@ -12,7 +12,8 @@ module.exports = {
   production: {
     sitename: 'Roux Meetups',
     data: {
-      speakers: path.join(__dirname, '../data/speakers.json'),
+      serviceRegistryUrl: 'http://localhost:3000',
+      serviceVersionIdentifier: '1.x.x',
       feedback: path.join(__dirname, '../data/feedback.json'),
     },
   },
