@@ -23,7 +23,7 @@ module.exports = (config) => {
   // Adding all routes for speakers micro-service
   service.get('/list', async (req, res, next) => {
     try {
-      // return res.json(await speakers.getList());
+      return res.json(await speakers.getList());
     } catch (err) {
       return next(err);
     }
