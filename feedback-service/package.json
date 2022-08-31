@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A service to read and post feedback",
   "scripts": {
-    "start": "node bin/run | bunyan"
+    "start": "nodemon bin/run | bunyan"
   },
   "keywords": [],
   "author": "",
