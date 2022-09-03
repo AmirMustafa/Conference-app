@@ -2,6 +2,7 @@
 const url = require('url');
 const axios = require('axios');
 const crypto = require('crypto');
+const amqplib = require('amqplib');
 
 const CircuitBreaker = require('../lib/CircuitBreaker');
 
@@ -12,6 +13,16 @@ class FeedbackService {
     this.serviceVersionIdentifier = serviceVersionIdentifier;
     this.serviceRegistryUrl = serviceRegistryUrl;
     this.cache = {};
+  }
+
+  // Using RabbitMQ to send message in queue 
+  async addEntry(name, title, message) {
+    const queue = 'feedback';
+    const conn = await amqplib.connect('amqp://localhost');
+    const ch = await conn.createChannel();
+    await ch.assertQueue(queue);
+    const qm = JSON.stringify({ name, title, message });
+    return ch.sendToQueue(queue, Buffer.from(qm, 'utf8'));
   }
 
   async getList() {
