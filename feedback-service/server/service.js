@@ -1,5 +1,6 @@
 const express = require('express');
 
+const amqplib = require('amqplib');
 const Feedback = require('./lib/Feedback');
 
 const service = express();
@@ -8,6 +9,22 @@ module.exports = (config) => {
   const feedback = new Feedback(config.data.feedback);
 
   const log = config.log();
+
+  const queue = 'feedback';
+
+  // Consuming data from RabbitMQ queue
+  amqplib.connect('amqp://localhost')
+    .then(conn => conn.createChannel())
+    .then(ch => ch.assertQueue(queue).then(() => ch.consume(queue, (msg) => {
+      if (msg !== null) {
+        log.debug(`Got message ${msg.content.toString()}`);
+        const qm = JSON.parse(msg.content.toString()); // Queue message i.e. data
+
+        feedback.addEntry(qm.name, qm.title, qm.message)
+        //   .then(() => ch.ack(msg)); // Let rabbitmq know received message
+      }
+    }))).catch(err => log.fatal(err));
+
   // Add a request logging middleware in development mode
   if (service.get('env') === 'development') {
     service.use((req, res, next) => {
