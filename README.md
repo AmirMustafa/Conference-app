@@ -9,7 +9,6 @@ The main idea of this application is to convert a monolithic into microservice a
 4. Circuit Breakers are implemented in calling the service for check - OPEN, CLOSED and HALF open state.
 5. RabbitMQ is implemented to send data from conference app to feedback queue and feedback microservice consumes it from queue.
 
-Please leave a star if you find it useful.
 
 
 
@@ -20,3 +19,5 @@ Please leave a star if you find it useful.
 
 
 ![Screenshot 2022-09-04 at 12 11 08 PM](https://user-images.githubusercontent.com/15896579/188300982-e6dd2e93-638d-4f84-8ada-da063506a5b0.png)
+
+Please leave a star if you find it useful.
